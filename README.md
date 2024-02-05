@@ -4,6 +4,16 @@ A web calculator with a .NET backend and a React front-end, an evaluation assign
 
 Details of the requirement conversation are on the bottom.
 
+## Running
+
+```sh
+$ dotnet run --project .\AdverCalculator.Server\ -lp https
+```
+
+This will start an API server and bring up the React app. The app uses a Vite
+host, including an API proxy - unfortunately the current configuration only
+works with the https profile.
+
 ## Evaluation
 
 Documenting the process: for a greenfield project, or anything that feels
@@ -89,7 +99,7 @@ Furthermore the calculator state will contain three variables:
 #### Operator Pressed in `After Equals` or `After Operator`
 
 - `Current Operator` is set to the selected operator.
-- `Right Operand` is set to `Left Operand`.
+- `Left Operand` is set to `Right Operand`.
 - We progress to the `After Operator` state.
 
 This means that, for example, the sequence `12 * 3 = - =` will give `0`:
@@ -102,7 +112,7 @@ This means that, for example, the sequence `12 * 3 = - =` will give `0`:
 - Lock the UI.
 - `Current Operator` is set to the selected operator.
 - Evaluate the operation of `Left Operand [Current Operator] Right Operand`.
-- `Left Operator` is set to the operation's result.
+- `Left Operand` is set to the operation's result.
 - Unlock the UI.
 - Progress to `After Operator`.
 
@@ -112,7 +122,7 @@ Note that the right operand remains untouched.
 
 - Lock the UI.
 - Evaluate the operation of `Left Operand [Current Operator] Right Operand`.
-- `Left Operator` is set to the operation's result.
+- `Left Operand` is set to the operation's result.
 - Unlock the UI.
 - Progress to `After Equals`.
 
@@ -120,7 +130,7 @@ Note that both `Right Operand` and `Current Operator` remain untouched.
 Repeatedly pressing `=` will result in repeating the operation multiple times,
 like `12*3*3*3`.
 
-#### Digit Pressed in `After Equals` or `After Digit`
+#### Digit Pressed in `After Equals` or `After Operator`
 
 - `Right Operand` is replaced with the digit.
 - We progress to `After Digit`.

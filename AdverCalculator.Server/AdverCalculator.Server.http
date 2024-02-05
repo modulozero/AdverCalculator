@@ -1,6 +1,6 @@
 @AdverCalculator.Server_HostAddress = http://localhost:5129
 
-GET {{AdverCalculator.Server_HostAddress}}/weatherforecast/
+GET {{AdverCalculator.Server_HostAddress}}/add
 Accept: application/json
 
 ###
