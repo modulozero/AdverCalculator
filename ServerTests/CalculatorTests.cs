@@ -40,4 +40,19 @@ public class CalculatorTests
         calculator = calculator.EqualsPressed();
         Assert.Equal("8", calculator.Display);
     }
+
+    [Fact]
+    public void OperatorAfterEquals()
+    {
+        var calculator = new Calculator()
+            .DigitPressed("2")
+            .OperatorPressed(CalculatorOperator.Multiplication)
+            .DigitPressed("3")
+            .EqualsPressed();
+        Assert.Equal("6", calculator.Display);
+        calculator = calculator.OperatorPressed(CalculatorOperator.Addition);
+        Assert.Equal("6", calculator.Display);
+        calculator = calculator.EqualsPressed();
+        Assert.Equal("12", calculator.Display);
+    }
 }

@@ -44,15 +44,14 @@ public record Calculator(CalculatorState State, string LeftOperand, CalculatorOp
 
     public Calculator() : this(CalculatorState.AfterEquals, "0", null, "0") { }
 
-    public Calculator OperatorPressed(CalculatorOperator op) => this with
-    {
-        LeftOperand = State switch {
-            CalculatorState.AfterOperator or CalculatorState.AfterEquals => RightOperand,
+    public Calculator OperatorPressed(CalculatorOperator op) => new(
+        LeftOperand: State switch {
+            CalculatorState.AfterOperator or CalculatorState.AfterEquals => Display,
             CalculatorState.AfterDigit => Evaluate(),
-        },
-        Operator = op,
-        State = CalculatorState.AfterOperator,
-    };
+        }, 
+        Operator: op, 
+        RightOperand: Display, 
+        State: CalculatorState.AfterOperator);
 
     public Calculator EqualsPressed() => this with {
         LeftOperand = Evaluate(),
@@ -61,13 +60,13 @@ public record Calculator(CalculatorState State, string LeftOperand, CalculatorOp
 
     public Calculator DigitPressed(string digit) => this with {
         LeftOperand = State switch {
-            CalculatorState.AfterEquals or CalculatorState.AfterOperator => RightOperand,
+            CalculatorState.AfterEquals or CalculatorState.AfterOperator => Display,
             CalculatorState.AfterDigit => LeftOperand,
         },
         RightOperand = State switch {
             CalculatorState.AfterOperator or CalculatorState.AfterEquals => digit,
             CalculatorState.AfterDigit => RightOperand + digit,
-        },        
+        },
         State = CalculatorState.AfterDigit,
     };
 
