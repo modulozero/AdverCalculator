@@ -1,7 +1,9 @@
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace GrpcCalculator.Server;
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum CalculatorState
 {
     AfterEquals,
@@ -9,7 +11,7 @@ public enum CalculatorState
     AfterDigit,
 }
 
-
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum CalculatorOperator
 {
     Addition,
