@@ -1,0 +1,5 @@
+root = True
+
+[*.cs]
+dotnet_diagnostic.CS8509.severity = error
+dotnet_diagnostic.CS8524.severity = none
